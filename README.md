@@ -10,7 +10,7 @@ The entire app is powered directly by the **Newton MCP (Model Context Protocol)*
 
 You do not need any coding knowledge to use this application! It has been built as a standalone desktop program for both Mac and Windows.
 
-**👉 [Download the Latest Release Here](https://github.com/Gautam-Bharadwaj/NST-MCP/releases/latest)**
+**[Download the Latest Release Here](https://github.com/Gautam-Bharadwaj/NST-MCP/releases/latest)**
 
 1. Go to the Releases page (link above).
 2. For **Windows**: Download the `.exe` file.
@@ -25,11 +25,11 @@ Once you log in, your secure session token is saved locally to your device. Next
 ---
 
 ## Key Features
-- 🤖 **AI Chat Assistant:** Ask questions about your upcoming lectures, pending assignments, or your subject-wise completion status.
-- 📅 **Smart Schedule:** Native interface showing your upcoming classes and contests across all active semesters.
-- 🚨 **Assignment Tracker:** Get immediate visibility into what's Overdue, Pending, or Submitted.
-- 📊 **Progress Dashboard:** See how much of your course is complete, broken down subject-by-subject.
-- 💻 **DSA Practice Helper:** Instantly fetch and filter coding practice questions from the Arena by difficulty or topic.
+-  **AI Chat Assistant:** Ask questions about your upcoming lectures, pending assignments, or your subject-wise completion status.
+-  **Smart Schedule:** Native interface showing your upcoming classes and contests across all active semesters.
+-  **Assignment Tracker:** Get immediate visibility into what's Overdue, Pending, or Submitted.
+-  **Progress Dashboard:** See how much of your course is complete, broken down subject-by-subject.
+-  **DSA Practice Helper:** Instantly fetch and filter coding practice questions from the Arena by difficulty or topic.
 
 ---
 
@@ -60,4 +60,4 @@ If you are a developer and want to run or build the application from the source 
    ```
 
 ---
-*Created as a capstone project.*
+
