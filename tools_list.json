@@ -1,0 +1,568 @@
+Connecting...
+Tools: [
+  {
+    "name": "get_arena_filters",
+    "description": "Get available filter values (topic slugs, company slugs, modules) for the Arena practice question system. Call this BEFORE search_practice_questions to discover what topic and company filter values are valid. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'what topics can I practice', 'which companies are available for filtering', 'what practice categories exist'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "ArenaFiltersParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_arena_stats",
+    "description": "Get the student's personal practice statistics: total questions solved, today's solve count, and overall arena progress. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'how many problems have I solved', 'my solve count', 'coding stats', 'today's progress', 'how many questions did I do today', 'my arena stats', 'practice progress'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "ArenaStatsParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_assessments",
+    "description": "Get assessments (MCQ quizzes) for a specific subject: both in-class and post-class assessments with completion status and scores. Requires subject_hash from list_courses → subjects[] array — call list_courses first. Also requires course_hash (omit to use primary course). Use when the student asks: 'my quizzes', 'MCQ scores', 'assessment results', 'in-class quiz', 'post-class assessment', 'quiz results in DSA', 'test scores'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subject_hash": {
+          "description": "Subject hash from list_courses → subjects[] array",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_hash"
+      ],
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "AssessmentsParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_assignments",
+    "description": "Get assignments and contests for a semester, optionally filtered by a specific subject. Requires course_hash from list_courses — omit to use the primary course. Optionally pass subject_hash from list_courses → subjects[] to filter by subject. Use when the student asks: 'my assignments', 'pending work', 'homework', 'what's due', 'due dates', 'any submissions pending', 'contests', 'upcoming contests', 'DSA assignments'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "include_contests": {
+          "description": "Include contests alongside assignments (default true)",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "limit": {
+          "description": "Max results per category (default 10)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "subject_hash": {
+          "description": "Subject hash to filter assignments for a specific subject. Omit to get assignments across all subjects in the semester.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "AssignmentsParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_calendar",
+    "description": "Get calendar events (lectures, contests) for the next N days, optionally filtered to a specific date. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'what's on March 15', 'my calendar for this week', 'events this month', 'what's scheduled on [date]', 'show me this week's calendar'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "description": "Specific date in YYYY-MM-DD format. If provided, filters events to only that date.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "number_of_days": {
+          "description": "Number of days to look ahead (default 7, max 90)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "CalendarParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_course_overview",
+    "description": "Get a comprehensive overview of a course/semester: XP, rank, level, milestone progress, and performance metrics. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'how am I doing', 'my progress', 'my stats', 'my rank', 'my XP', 'my level', 'milestones', 'how much have I completed', 'my performance'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "CourseOverviewParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_leaderboard",
+    "description": "Get the leaderboard showing top performers and the student's own ranking. Supports monthly, weekly, and all-time periods. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'leaderboard', 'rankings', 'who's on top', 'where do I stand', 'my position', 'my rank', 'topper list', 'class rank', 'top students'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "limit": {
+          "description": "Number of top users to show (default 10)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LeaderboardPeriod"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Time period for rankings (default: all time)"
+        }
+      },
+      "$defs": {
+        "LeaderboardPeriod": {
+          "description": "Leaderboard time period filter.\nFrom courses/leaderboard.py::LeaderboardPeriod.",
+          "oneOf": [
+            {
+              "const": "overall",
+              "description": "All-time rankings",
+              "type": "string"
+            },
+            {
+              "const": "weekly",
+              "description": "This week's rankings",
+              "type": "string"
+            },
+            {
+              "const": "monthly",
+              "description": "This month's rankings",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "LeaderboardParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_lecture_details",
+    "description": "Get full details of a specific lecture: topic notes content, instructor info, and recording link. Requires lecture_hash and subject_hash — get these from get_recent_lectures or get_upcoming_schedule (call one of those first). Use when the student asks: 'show me the notes for [lecture]', 'lecture recording', 'what was covered in [lecture]', 'class notes', 'who taught [lecture]'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "lecture_hash": {
+          "description": "Lecture hash from get_recent_lectures or get_upcoming_schedule",
+          "type": "string"
+        },
+        "subject_hash": {
+          "description": "Subject hash that this lecture belongs to (from get_recent_lectures or get_upcoming_schedule)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "lecture_hash",
+        "subject_hash"
+      ],
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "LectureDetailsParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_me",
+    "description": "Get the current authenticated user's profile information",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_qotd_history",
+    "description": "Get past Question of the Day entries and the QOTD streak leaderboard. Returns only titles of past questions — NEVER question content. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'past QOTDs', 'previous daily questions', 'QOTD leaderboard', 'who has the longest streak', 'QOTD history', 'what were the past questions'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "include_leaderboard": {
+          "description": "Include leaderboard in response (default true)",
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "QotdHistoryParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_question_of_the_day",
+    "description": "Get today's Question of the Day (QOTD) title, difficulty, and the student's current streak. Returns only the title — NEVER the question content. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'today's QOTD', 'question of the day', 'daily question', 'daily challenge', 'my streak', 'QOTD streak', 'did I solve today's question'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "QotdParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_recent_lectures",
+    "description": "Get recently conducted lectures with recording availability. Returns lecture_hash and subject_hash needed for get_lecture_details. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'what lectures did I miss', 'recent classes', 'past lectures', 'recorded lectures', 'any recordings available', 'what was taught last week'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "limit": {
+          "description": "Number of recent lectures to return (default 5)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "RecentLecturesParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_subject_progress",
+    "description": "Get detailed topic-wise progress in a specific subject: completion percentage per topic, lessons done, questions solved. Requires subject_hash from list_courses → subjects[] array — call list_courses first to find subject hashes. Also requires course_hash (omit to use primary course). Use when the student asks: 'how am I doing in DSA', 'my Maths progress', 'topic-wise completion', 'how much have I completed in [subject]', 'which topics are left'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subject_hash": {
+          "description": "Subject hash from list_courses → subjects[] array (e.g., the hash for 'DSA Architecture')",
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_hash"
+      ],
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "SubjectProgressParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "get_upcoming_schedule",
+    "description": "Get upcoming lectures, contests, and assignment deadlines sorted chronologically. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'what's my schedule', 'next class', 'upcoming lectures', 'when is my next lecture', 'any class tomorrow', 'what do I have today', 'timetable', 'what's coming up', 'deadlines this week'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "days": {
+          "description": "Number of days to look ahead (default 7)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "UpcomingScheduleParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "list_courses",
+    "description": "IMPORTANT: Always call this tool FIRST before using any other tool. Lists all courses the student is enrolled in and returns course_hash and subject_hash values required by every other tool. For NST (Newton School of Technology) B.Tech courses, each semester (e.g., Semester 1, Semester 2) appears as a separate entry with its own course_hash and its subjects listed inside. For non-NST courses (e.g., 'Python for Beginners'), the course appears as a single entry. Also identifies the primary B.Tech CS course if one exists — if primary_course_hash is null, ask the student which course they want to query. Students may say 'my courses', 'what am I enrolled in', 'Sem 1', 'Semester 2', 'DSA', 'Maths', etc.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  },
+  {
+    "name": "logout",
+    "description": "Log out the current user by clearing stored credentials. Use when the student asks to log out, switch accounts, or re-authenticate.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true
+    }
+  },
+  {
+    "name": "search_practice_questions",
+    "description": "Search and filter coding practice questions in the Arena by topic, difficulty, and company. Returns question titles, metadata, and links — NEVER question descriptions or content. Call get_arena_filters first to discover valid topic/company slugs for filtering. Requires course_hash from list_courses — omit to use the primary course. Use when the student asks: 'practice questions', 'DSA questions', 'easy/medium/hard problems', 'questions asked by Google', 'coding problems on arrays', 'I want to practice', 'interview prep questions', 'give me some problems to solve'.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "companies": {
+          "description": "Comma-separated company slugs (e.g., 'google,amazon'). Get valid slugs from get_arena_filters.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "course_hash": {
+          "description": "Course hash from list_courses (for NST courses, this is the semester's course hash). Omit to use the primary course.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "difficulty": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Difficulty"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Filter by difficulty level"
+        },
+        "limit": {
+          "description": "Max questions to return (default 15)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "offset": {
+          "description": "Pagination offset (default 0)",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "sort_by": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SortBy"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Sort order (default: most popular)"
+        },
+        "topics": {
+          "description": "Comma-separated topic slugs (e.g., 'arrays,linked-list'). Get valid slugs from get_arena_filters.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "$defs": {
+        "Difficulty": {
+          "description": "Arena question difficulty levels.\nMaps to assignments/utils.py::DifficultyType.\nAPI sends string slugs: \"EASY\", \"MEDIUM\", \"HARD\".",
+          "oneOf": [
+            {
+              "const": "easy",
+              "description": "Easy difficulty",
+              "type": "string"
+            },
+            {
+              "const": "medium",
+              "description": "Medium difficulty",
+              "type": "string"
+            },
+            {
+              "const": "hard",
+              "description": "Hard difficulty",
+              "type": "string"
+            }
+          ]
+        },
+        "SortBy": {
+          "description": "Arena sort options (used as query param strings).",
+          "oneOf": [
+            {
+              "const": "most_popular",
+              "description": "Sort by popularity (most solved)",
+              "type": "string"
+            },
+            {
+              "const": "recent",
+              "description": "Sort by most recently added",
+              "type": "string"
+            },
+            {
+              "const": "difficulty",
+              "description": "Sort by difficulty level",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "SearchPracticeQuestionsParams"
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "destructiveHint": false
+    }
+  }
+]
