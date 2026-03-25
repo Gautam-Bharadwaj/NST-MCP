@@ -1,16 +1,63 @@
-# React + Vite
+# NST-X: AI-Powered Student Companion
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**NST-X** is an intelligent desktop application designed for Newton School students. It acts as a comprehensive portal and AI assistant, integrating perfectly with your enrolled courses, lectures, schedule, and practice coding problems. 
 
-Currently, two official plugins are available:
+The entire app is powered directly by the **Newton MCP (Model Context Protocol)** backend, ensuring all data is perfectly synced to your personal student account.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Download & Install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+You do not need any coding knowledge to use this application! It has been built as a standalone desktop program for both Mac and Windows.
 
-## Expanding the ESLint configuration
+**👉 [Download the Latest Release Here](https://github.com/Gautam-Bharadwaj/NST-MCP/releases/latest)**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Go to the Releases page (link above).
+2. For **Windows**: Download the `.exe` file.
+3. For **Mac**: Download the `.dmg` file.
+4. Install and open the application.
+
+### How to Log In
+The very first time you open exactly **NST-X**, an automated browser window will appear asking you to log into your Newton School account (`@adypu.edu.in`).
+
+Once you log in, your secure session token is saved locally to your device. Next time you open the app, it will already be perfectly synced with your schedule and assignments!
+
+---
+
+## Key Features
+- 🤖 **AI Chat Assistant:** Ask questions about your upcoming lectures, pending assignments, or your subject-wise completion status.
+- 📅 **Smart Schedule:** Native interface showing your upcoming classes and contests across all active semesters.
+- 🚨 **Assignment Tracker:** Get immediate visibility into what's Overdue, Pending, or Submitted.
+- 📊 **Progress Dashboard:** See how much of your course is complete, broken down subject-by-subject.
+- 💻 **DSA Practice Helper:** Instantly fetch and filter coding practice questions from the Arena by difficulty or topic.
+
+---
+
+## Advanced: Running From Source (For Developers)
+
+If you are a developer and want to run or build the application from the source code, please ensure you have Node.js installed.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Gautam-Bharadwaj/NST-MCP.git
+   cd NST-MCP/ai-student-app
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Run in development mode:**
+   ```bash
+   npm run dev
+   ```
+4. **Build installers locally:**
+   ```bash
+   # Build for Mac
+   npm run build
+   
+   # Build for Windows
+   npx electron-builder --win
+   ```
+
+---
+*Created as a capstone project.*
